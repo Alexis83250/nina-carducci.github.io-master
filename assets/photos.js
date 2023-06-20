@@ -51,3 +51,20 @@ function genererFilters(photos) {
 }
 //permet de generer les photos non filtrés par default
 genererFilters(photos);
+
+Array.from(document.querySelectorAll(".filterChoice")).forEach((el) => {
+  el.addEventListener("click", (event) => {
+    const categoryId = event.target.dataset.id;
+    //console.log("Category", categoryId);
+    if (categoryId <= 0) {
+      document.querySelector(".gallery").innerHTML = "";
+      genererPhotos(photos);
+    } else {
+      const photosFiltrees4 = photos.filter(function (photo) {
+        return photo.categoryId == categoryId;
+      });
+      document.querySelector(".gallery").innerHTML = "";
+      genererPhotos(photosFiltrees4);
+    }
+  });
+});
