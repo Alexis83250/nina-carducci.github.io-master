@@ -1,0 +1,16 @@
+[
+    {
+        "id" : 1,
+        "image" : "./assets/images/slider/ryoji-iwata.webp"
+    },
+
+    {
+        "id" : 2,
+        "image" : "./assets/images/slider/nicholas-green.webp"
+    },
+
+    {
+        "id" : 3,
+        "image" : "./assets/images/slider/edward-cisneros.webp"
+    }
+]

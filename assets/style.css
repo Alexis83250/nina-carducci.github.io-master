@@ -6,6 +6,13 @@ body {
 	font-family: 'Inter';
 	font-style: normal;
 }
+h1:hover{
+	cursor: pointer;
+}
+h1 a{
+	text-decoration: none;
+	color: #000;
+}
 
 h2 {
 	font-size:xx-large;
@@ -58,8 +65,6 @@ nav a {
 
 
 
-
-
 /*--------------------------------A PROPOS DE MOI-----------------------------*/
 
 #about {
@@ -99,68 +104,97 @@ nav a {
 	margin-bottom: 60px;
 	font-size: 30px;
 }
+
+
 .about-me__introduction {
 	font-family: 'Spectral';
 	font-weight: 800;
 	font-style: italic;
 	width: 60%;
+	font-size: 20px;
 }
 #about-me p {
 	width: 80%;
+}
+
+.abouttext{
 	font-size: 14px;
 }
 
 /*--------------------------------GALLERY-----------------------------*/
 
+.filter{
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	margin-bottom: 40px;
+}
+
+.filterChoice{
+	margin-left: 25px;
+	margin-right: 25px;
+	padding: 5px;
+}
+
+.filterChoice:hover{
+	transition: 0.3s;
+	background-color: #BEB45A;
+	color: white;
+	cursor: pointer;
+}
+
+
+.py-3{
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+}
+
+
+.gallery-item img{
+	width: 100%;
+	height: 550px;
+	object-fit: cover;
+	animation-duration: 1s;
+  animation-name: glissement;
+}
+.gallery-item{
+	animation-direction: normal;
+}
+ 
+@keyframes glissement {
+	from {
+	  margin-left: -500%;
+	  width: 200%;
+	}
+
+	to {
+		margin-left: 0%;
+		width: 100%;
+	  }
+  }
+/*------------*/
+
+.gallery-item {
+	width: 100%;
+	margin: 0;
+}
+
 .gallery {
+	display: grid;
 	grid-template-columns: 1fr 1fr 1fr;
+	gap: 10px;
+	margin: 0 50px;
 }
 .title{
 	text-align: center;
 	padding-block: 2em;
 }
 
-.portfolio .nav {
-	display: flex;
-	align-items: center;
-	flex-direction: row;
-	gap: 40px;
-	list-style-type: none;
-	text-decoration: none;
-}
 
-.gallery .nav {
-	justify-content: center;
-	align-items: center;
-}
-.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
-	color: #fff;
-	background-color: #BEB45A;
-	border-radius:0 ;
-}
-.nav-pills .nav-link {
-	color: #000
-}
-.item-column {
-	position: relative;
-	margin-bottom: 0 !important;
-	padding: 0;
-}
-.item-column::after{
-	content: "";
-	display: block;
-	padding-bottom: 36%;
 
-}
-.gallery-item {
-	position: absolute;
-	width: 100%;
-	height: 100%;
-	object-fit: cover;
-	padding: .5em;
-	max-width: 500px;
-	max-height: 500px;
-}
+/*------------------------------------------------------------*/
 .mg-prev, .mg-next {
 	width: 30px;
 	height: 30px;
@@ -225,7 +259,7 @@ nav a {
 	z-index: 1;
 }
 
-footer {
+.contact {
 	margin: auto;
 	background-color: #D8D3A8 ;
 	position: relative;
@@ -233,7 +267,7 @@ footer {
 	padding-block: 100px;
 }
 
-footer .container {
+.contact .container {
 	display: flex;
 }
 .picture.right::before {
@@ -279,23 +313,29 @@ input[type="submit"] {
 	padding: .5em 1em
 }
 
+footer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 @media all and (max-width: 1180px) {
 	.picture {
 		flex : 2;
 	}
-	#about, #contact .container {
+	#about, .contact .container {
 		align-items: center;
 	}
 	.about-me__title {
 		margin-top: 0;
 		margin-bottom: 1em;
 	}
-	#about-me h6, #about-me p {
+	#about-me h4, #about-me p {
 		width: 100%;
 	}
 }
 
-@media all and (max-width: 1000px) {
+@media all and (max-width: 1023.99px) {
 	#about{
 		flex-direction: column;
 
@@ -319,30 +359,38 @@ input[type="submit"] {
 	#services .container {
 		flex-direction: column;
 	}
+	
 	.service {
-		width: 100%;
+		width: 90%;
 		max-width: 100%;
 		height: auto;
-		margin: 2em 0
+		margin: 2em 1em;
 	}
 	.service__description{
 		margin-bottom: 1em;
 	}
 
 	#services .container::before{
-		width: 30%;
+		width: 20%;
 		height: 100%;
 		bottom: 0;
 		right: 0;
 		left: auto;
-		z-index: 0;
+		z-index: 1;
 	}
 
-	#contact .container {
+	.contact .container {
 		flex-direction: column;
 	}
-	#contact .picture.right {
+	.contact .picture.right {
 		margin-top: 1em;
+	}
+
+	.form-container {
+		justify-content: center;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
 	}
 	.picture.right::before {
 		width: 100%;
@@ -352,18 +400,29 @@ input[type="submit"] {
 		right: 0;
 		z-index: -1;
 	}
+
+	.gallery-item img{
+		width: 100%;
+		height: 220px;
+		
+	}
+
+	.quote{
+		width: 90%;
+	}
+
 }
 
-@media all and (max-width: 650px) {
-	.top-header {
+@media all and (max-width: 767px) {
+	header {
 		flex-direction: column;
 		padding-inline: 0;
 	}
-	.top-header .nav, .top-header .nav ul {
+	header .nav, header .nav ul {
 		width: 100%;
 		padding: 0 0 0 0;
 	}
-	.top-header .nav li {
+	header .nav li {
 		flex: 1;
 		padding-block: 1em;
 		text-align: center;
@@ -377,7 +436,7 @@ input[type="submit"] {
 	.service {
 		max-width: 90%;
 	}
-	#about, #contact {
+	#about, .contact {
 		padding-inline: 2em;
 		padding-block: 2em;
 	}
@@ -386,6 +445,50 @@ input[type="submit"] {
 	}
 	.picture {
 		width: 80%;
+	}
+
+	.filter{
+		display: flex;
+		flex-direction: row;
+		justify-content: center;
+		margin-bottom: 40px;
+		flex-wrap: wrap;
+	}
+
+	.gallery {
+		display: grid;
+		grid-template-columns: 1fr;
+		width: 100%;
+		margin: 0;
+	}
+	.gallery-item img{
+		width: 100%;
+		height: 375px;
+	}
+
+	blockquote {
+		display: block;
+		margin-block-start: 0;
+		margin-block-end: 0;
+		margin-inline-start: 0;
+		margin-inline-end: 0;
+		width: 85%;
+	}
+
+	.quote {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+	}
+
+	header ul{
+		padding-left: 0;
+	}
+
+	header{
+		align-items: center;
+		justify-content: center;
 	}
 }
 
