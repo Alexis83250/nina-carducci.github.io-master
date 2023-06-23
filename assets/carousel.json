@@ -1,16 +1,19 @@
 [
     {
         "id" : 1,
-        "image" : "./assets/images/slider/ryoji-iwata.webp"
+        "image" : "./assets/images/slider/ryoji-iwata.webp",
+        "alt" : "Homme qui marche pour aller au travail"
     },
 
     {
         "id" : 2,
-        "image" : "./assets/images/slider/nicholas-green.webp"
+        "image" : "./assets/images/slider/nicholas-green.webp",
+        "alt" : "Photo du public joyeux à un concert"
     },
 
     {
         "id" : 3,
-        "image" : "./assets/images/slider/edward-cisneros.webp"
+        "image" : "./assets/images/slider/edward-cisneros.webp",
+        "alt" : "Photo d'un couple de marié qui s'embrassent"
     }
 ]

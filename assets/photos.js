@@ -6,7 +6,6 @@ async function photosFilterss() {
 
 //Création d'une function qui genere les photos
 async function genererPhotos(photo) {
-  console.log(photo);
   const photos = typeof photo === "undefined" ? await photosFilterss() : photo;
   //Création d'une boucle qui va prendre toutes les photos
   //console.log(photos.length);
@@ -24,6 +23,7 @@ async function genererPhotos(photo) {
     const imageElement = document.createElement("img");
     imageElement.src = article.image;
     imageElement.alt = article.alt;
+    imageElement.id = article.id;
 
     //Ajout de articleElement dans sectionGallery
 
@@ -31,6 +31,13 @@ async function genererPhotos(photo) {
 
     //Ajout de nos balises au DOM
     divElement.appendChild(imageElement);
+
+    //MODAL--------------------------------
+
+    imageElement.addEventListener("click", () => {
+      console.log(imageElement.id);
+    });
+    //MODAL--------------------------------
   }
 }
 //permet de generer les photos non filtrés par default
@@ -90,14 +97,68 @@ async function carousel() {
   const photosCarousel = await responseCarousel.json();
   return photosCarousel;
 }
-//console.log(carousel());
+
 let firstSlide = 0;
+const next = document.querySelector("#btn-d");
+const prev = document.querySelector("#btn-g");
+
+//console.log(carousel());
+
 async function genererCarousel() {
   const slides = await carousel();
 
-  slides.forEach((element, index) => {
-    console.log(element, index);
-  });
+  slides.forEach((element, index) => {});
+
+  const mySlides = slides[firstSlide];
+
+  const sectionCarousel = document.querySelector(".carousel");
+
+  const divElement = document.createElement("div");
+  divElement.classList.add("carouselImage");
+
+  const imageElement = document.createElement("img");
+  imageElement.src = mySlides.image;
+  imageElement.alt = mySlides.alt;
+  imageElement.classList.add("carouselImg");
+
+  //Ajout de articleElement dans sectionGallery
+  sectionCarousel.appendChild(divElement);
+  divElement.appendChild(imageElement);
+  console.log(slides);
+  //Ajout de nos balises au DOM
 }
 //permet de generer les photos non filtrés par default
 genererCarousel();
+
+const container = document.querySelector(".carouselImg");
+// Photo suivante-----------------------
+
+console.log(firstSlide);
+
+next.addEventListener("click", () => {
+  if (firstSlide >= 2) {
+    firstSlide = 0;
+    document.querySelector(".carouselImage").innerHTML = "";
+    genererCarousel();
+  } else {
+    firstSlide = firstSlide + 1;
+    document.querySelector(".carouselImage").innerHTML = "";
+    genererCarousel();
+  }
+  console.log(firstSlide);
+});
+
+// Photo precedente-----------------------
+
+prev.addEventListener("click", () => {
+  if (firstSlide <= 0) {
+    firstSlide = 2;
+    document.querySelector(".carouselImage").innerHTML = "";
+    genererCarousel();
+  } else {
+    firstSlide = firstSlide - 1;
+    document.querySelector(".carouselImage").innerHTML = "";
+    genererCarousel();
+  }
+  console.log(firstSlide);
+});
