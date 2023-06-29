@@ -21,6 +21,7 @@ async function genererPhotos(photo) {
     divElement.classList.add("gallery-item");
 
     const imageElement = document.createElement("img");
+    divElement.classList.add("imageId");
     imageElement.src = article.image;
     imageElement.alt = article.alt;
     imageElement.id = article.id;
@@ -33,10 +34,10 @@ async function genererPhotos(photo) {
     divElement.appendChild(imageElement);
 
     //MODAL--------------------------------
+    // OUVRIR MODAL----
+    imageElement.addEventListener("click", openModal);
+    //console.log(imageElement.id);
 
-    imageElement.addEventListener("click", () => {
-      console.log(imageElement.id);
-    });
     //MODAL--------------------------------
   }
 }
@@ -72,6 +73,9 @@ async function genererFilters() {
 }
 //permet de generer les photos non filtrés par default
 genererFilters();
+
+//----------FILTRES--------------------
+
 async function selectionFilters() {
   const photos = await photosFilterss();
   Array.from(document.querySelectorAll(".filterChoice")).forEach((el) => {
@@ -92,6 +96,10 @@ async function selectionFilters() {
   });
 }
 
+//------------Modif couleur filtres-----------
+
+//----------------CAROUSEL-----------------------
+
 async function carousel() {
   const responseCarousel = await fetch("./assets/carousel.json");
   const photosCarousel = await responseCarousel.json();
@@ -99,8 +107,11 @@ async function carousel() {
 }
 
 let firstSlide = 0;
-const next = document.querySelector("#btn-d");
-const prev = document.querySelector("#btn-g");
+const next = document.querySelector("#boutonDroite");
+const prev = document.querySelector("#boutonGauche");
+const btnNum1 = document.querySelector("#bouton1");
+const btnNum2 = document.querySelector("#bouton2");
+const btnNum3 = document.querySelector("#bouton3");
 
 //console.log(carousel());
 
@@ -124,41 +135,188 @@ async function genererCarousel() {
   //Ajout de articleElement dans sectionGallery
   sectionCarousel.appendChild(divElement);
   divElement.appendChild(imageElement);
-  console.log(slides);
+  //console.log(slides);
   //Ajout de nos balises au DOM
+  if (firstSlide == 0) {
+    btnNum1.style.opacity = "1";
+    btnNum2.style.opacity = "0.5";
+    btnNum3.style.opacity = "0.5";
+  } else if (firstSlide == 1) {
+    btnNum1.style.opacity = "0.5";
+    btnNum2.style.opacity = "1";
+    btnNum3.style.opacity = "0.5";
+  } else {
+    btnNum1.style.opacity = "0.5";
+    btnNum2.style.opacity = "0.5";
+    btnNum3.style.opacity = "1";
+  }
 }
 //permet de generer les photos non filtrés par default
 genererCarousel();
 
-const container = document.querySelector(".carouselImg");
+//const container = document.querySelector(".carouselImg");
 // Photo suivante-----------------------
 
-console.log(firstSlide);
-
-next.addEventListener("click", () => {
+/*next.addEventListener("click", () => {
   if (firstSlide >= 2) {
     firstSlide = 0;
-    document.querySelector(".carouselImage").innerHTML = "";
+    document.querySelector(".carouselImage").remove();
     genererCarousel();
   } else {
     firstSlide = firstSlide + 1;
-    document.querySelector(".carouselImage").innerHTML = "";
+    document.querySelector(".carouselImage").remove();
     genererCarousel();
   }
-  console.log(firstSlide);
-});
+});*/
+
+next.addEventListener("click", photoSuivante);
+function photoSuivante() {
+  if (firstSlide >= 2) {
+    firstSlide = 0;
+    document.querySelector(".carouselImage").remove();
+    genererCarousel();
+  } else {
+    firstSlide = firstSlide + 1;
+    document.querySelector(".carouselImage").remove();
+    genererCarousel();
+  }
+}
+
+setInterval(photoSuivante, 5000);
 
 // Photo precedente-----------------------
 
 prev.addEventListener("click", () => {
   if (firstSlide <= 0) {
     firstSlide = 2;
-    document.querySelector(".carouselImage").innerHTML = "";
+    document.querySelector(".carouselImage").remove();
     genererCarousel();
   } else {
     firstSlide = firstSlide - 1;
-    document.querySelector(".carouselImage").innerHTML = "";
+    document.querySelector(".carouselImage").remove();
     genererCarousel();
   }
-  console.log(firstSlide);
+});
+
+//--------------BTN CAROUSEL -----------------
+
+btnNum1.addEventListener("click", () => {
+  firstSlide = 0;
+  document.querySelector(".carouselImage").remove();
+  genererCarousel();
+  btnNum1.style.opacity = "1";
+  btnNum2.style.opacity = "0.5";
+  btnNum3.style.opacity = "0.5";
+});
+
+btnNum2.addEventListener("click", () => {
+  firstSlide = 1;
+  document.querySelector(".carouselImage").remove();
+  genererCarousel();
+  btnNum1.style.opacity = "0.5";
+  btnNum2.style.opacity = "1";
+  btnNum3.style.opacity = "0.5";
+});
+
+btnNum3.addEventListener("click", () => {
+  firstSlide = 2;
+  document.querySelector(".carouselImage").remove();
+  genererCarousel();
+  btnNum1.style.opacity = "0.5";
+  btnNum2.style.opacity = "0.5";
+  btnNum3.style.opacity = "1";
+});
+//--------------BTN CAROUSEL -----------------
+
+// -------------------MODAL------------------
+
+// OUVRIR MODAL----
+const target = document.querySelector("#modal1");
+const stopPropagation = function (e) {
+  e.stopPropagation();
+};
+
+const openModal = function (e) {
+  e.preventDefault();
+  const MonIdPhoto = document.querySelector("gallery-item");
+  target.style.display = null;
+  target.setAttribute("aria-hidden", "false");
+  target.setAttribute("aria-modal", "true");
+  document
+    .querySelector(".modal-wrapper")
+    .addEventListener("click", stopPropagation);
+  genererPhotosModal();
+};
+
+// CLOSE MODAL-----------
+
+const closeModal = function (e) {
+  e.preventDefault();
+
+  document
+    .querySelector(".modal-wrapper")
+    .removeEventListener("click", stopPropagation);
+  target.style.display = "none";
+  target.setAttribute("aria-hidden", "true");
+  target.setAttribute("aria-modal", "false");
+  document.querySelector(".modaleDivImage").remove();
+};
+
+document.querySelector(".modal").addEventListener("click", closeModal);
+
+//----------GENERER PHOTOS MODAL---------
+let firstPhotosModal = 0;
+
+const btnModal1 = document.querySelector("#btn-gModal");
+const btnModal2 = document.querySelector("#btn-dModal");
+
+async function genererPhotosModal() {
+  const photosModal = await photosFilterss();
+
+  photosModal.forEach((element, index) => {});
+
+  const myPhotosModale = photosModal[firstPhotosModal];
+
+  const sectionCarousel = document.querySelector(".contenuModal");
+
+  const divElement = document.createElement("div");
+  divElement.classList.add("modaleDivImage");
+
+  const imageElement = document.createElement("img");
+  imageElement.src = myPhotosModale.image;
+  imageElement.alt = myPhotosModale.alt;
+  imageElement.classList.add("modaleImage");
+
+  //Ajout de articleElement dans sectionGallery
+  sectionCarousel.appendChild(divElement);
+  divElement.appendChild(imageElement);
+}
+//permet de generer les photos non filtrés par default
+
+// Photo suivante-----------------------
+
+btnModal2.addEventListener("click", () => {
+  if (firstPhotosModal >= 8) {
+    firstPhotosModal = 0;
+    document.querySelector(".modaleDivImage").remove();
+    genererPhotosModal();
+  } else {
+    firstPhotosModal = firstPhotosModal + 1;
+    document.querySelector(".modaleDivImage").remove();
+    genererPhotosModal();
+  }
+});
+
+// Photo precedente-----------------------
+
+btnModal1.addEventListener("click", () => {
+  if (firstPhotosModal <= 0) {
+    firstPhotosModal = 8;
+    document.querySelector(".modaleDivImage").remove();
+    genererPhotosModal();
+  } else {
+    firstPhotosModal = firstPhotosModal - 1;
+    document.querySelector(".modaleDivImage").remove();
+    genererPhotosModal();
+  }
 });

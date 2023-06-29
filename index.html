@@ -37,8 +37,12 @@
 <main>
 	
 <section class="carousel">
-	<button id="btn-g" class="bouton"><i class="fa-solid fa-chevron-left fa-2xl"></i></button>
-	<button id="btn-d" class="bouton"><i class="fa-solid fa-chevron-right fa-2xl"></i></button>
+	<button id="boutonGauche" class="bouton"><i class="fa-solid fa-chevron-left fa-2xl"></i></button>
+	<button id="boutonDroite" class="bouton"><i class="fa-solid fa-chevron-right fa-2xl"></i></button>
+	<button id="bouton1" class="boutonDefil"></i><i class="fa-solid fa-window-minimize fa-2xl" style="color: #ffffff;"></i></button>
+	<button id="bouton2" class="boutonDefil"></i><i class="fa-solid fa-window-minimize fa-2xl" style="color: #ffffff;"></i></button>
+	<button id="bouton3" class="boutonDefil"></i><i class="fa-solid fa-window-minimize fa-2xl" style="color: #ffffff;"></i></button>
+
 </section>
 <section id="about">
 	<div class="picture left">
@@ -52,8 +56,10 @@
 	</div>
 </section>
 <section class="portfolio" id="portfolio">
-	<aside class="modal" aria-hidden="true" role= "dialog">
+	<aside id="modal1" class="modal" aria-hidden="true" role= "dialog" style="display: none;">
 		<div class="modal-wrapper">
+			<button id="btn-gModal" class="boutonModal"><i class="fa-solid fa-chevron-left fa-xl"></i></button>
+			<button id="btn-dModal" class="boutonModal"><i class="fa-solid fa-chevron-right fa-xl"></i></button>
 			<div class="contenuModal">
 			</div>
 		</div>
