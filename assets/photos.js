@@ -64,6 +64,7 @@ async function genererFilters() {
 
     const divEl = document.createElement("div");
     divEl.classList.add("filterChoice");
+
     divEl.dataset.id = [i];
     divEl.innerText = myFilter.name;
 
@@ -82,6 +83,10 @@ async function selectionFilters() {
     el.addEventListener("click", (event) => {
       const categoryId = event.target.dataset.id;
       //console.log("Category", categoryId);
+      Array.from(document.querySelectorAll(".filterChoice")).forEach((el) => {
+        el.classList.remove("activedButton");
+      });
+      event.target.classList.add("activedButton");
       if (categoryId <= 0) {
         document.querySelector(".gallery").innerHTML = "";
         genererPhotos();
@@ -118,7 +123,7 @@ const btnNum3 = document.querySelector("#bouton3");
 async function genererCarousel() {
   const slides = await carousel();
 
-  slides.forEach((element, index) => {});
+  //slides.forEach((element, index) => {});
 
   const mySlides = slides[firstSlide];
 
@@ -238,14 +243,17 @@ const stopPropagation = function (e) {
 
 const openModal = function (e) {
   e.preventDefault();
-  const MonIdPhoto = document.querySelector("gallery-item");
+
+  const MonIdPhoto = parseInt(e.target.getAttribute("id")) - 1;
+  const catId = parseInt(document.querySelector(".activedButton").dataset.id);
+  console.log(MonIdPhoto, catId);
   target.style.display = null;
   target.setAttribute("aria-hidden", "false");
   target.setAttribute("aria-modal", "true");
   document
     .querySelector(".modal-wrapper")
     .addEventListener("click", stopPropagation);
-  genererPhotosModal();
+  genererPhotosModal(MonIdPhoto, catId);
 };
 
 // CLOSE MODAL-----------
@@ -265,20 +273,24 @@ const closeModal = function (e) {
 document.querySelector(".modal").addEventListener("click", closeModal);
 
 //----------GENERER PHOTOS MODAL---------
-let firstPhotosModal = 0;
+let IdPhoto = 0;
+let nbMedias = 8;
 
 const btnModal1 = document.querySelector("#btn-gModal");
 const btnModal2 = document.querySelector("#btn-dModal");
 
-async function genererPhotosModal() {
+async function genererPhotosModal(IdPhotos, catId) {
   const photosModal = await photosFilterss();
 
-  photosModal.forEach((element, index) => {});
-
-  const myPhotosModale = photosModal[firstPhotosModal];
-
+  //photosModal.forEach((element, index) => {});
+  const maPhotoFiltre = photosModal.filter(
+    (el) => el.categoryId === parseInt(catId)
+  );
+  IdPhoto = parseInt(IdPhotos);
+  const myPhotosModale = maPhotoFiltre[IdPhoto];
+  console.log(IdPhoto, maPhotoFiltre);
   const sectionCarousel = document.querySelector(".contenuModal");
-
+  nbMedias = maPhotoFiltre.length - 1;
   const divElement = document.createElement("div");
   divElement.classList.add("modaleDivImage");
 
@@ -296,27 +308,29 @@ async function genererPhotosModal() {
 // Photo suivante-----------------------
 
 btnModal2.addEventListener("click", () => {
-  if (firstPhotosModal >= 8) {
-    firstPhotosModal = 0;
+  console.log(IdPhoto);
+  if (IdPhoto >= nbMedias) {
+    IdPhoto = 0;
     document.querySelector(".modaleDivImage").remove();
-    genererPhotosModal();
+    genererPhotosModal(IdPhoto);
   } else {
-    firstPhotosModal = firstPhotosModal + 1;
+    IdPhoto = IdPhoto + 1;
     document.querySelector(".modaleDivImage").remove();
-    genererPhotosModal();
+    genererPhotosModal(IdPhoto);
   }
+  console.log(nbMedias);
 });
 
 // Photo precedente-----------------------
 
 btnModal1.addEventListener("click", () => {
-  if (firstPhotosModal <= 0) {
-    firstPhotosModal = 8;
+  if (IdPhoto <= 0) {
+    IdPhoto = nbMedias;
     document.querySelector(".modaleDivImage").remove();
-    genererPhotosModal();
+    genererPhotosModal(IdPhoto);
   } else {
-    firstPhotosModal = firstPhotosModal - 1;
+    IdPhoto = IdPhoto - 1;
     document.querySelector(".modaleDivImage").remove();
-    genererPhotosModal();
+    genererPhotosModal(IdPhoto);
   }
 });
