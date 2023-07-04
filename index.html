@@ -3,11 +3,10 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<!--<link rel="stylesheet" href="./assets/bootstrap/bootstrap.css">-->
 	<link rel="stylesheet" href="./assets/style.css">
-	<link rel="preconnect" href="https://fonts.googleapis.com">
-	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<link href="https://fonts.googleapis.com/css2?family=Inter&family=Spectral:ital,wght@0,400;1,300;1,400;1,800&display=swap" rel="stylesheet">
+	<!--<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>-->
+	<!--<link href="https://fonts.googleapis.com/css2?family=Inter&family=Spectral:ital,wght@0,400;1,300;1,400;1,800&display=swap" rel="stylesheet">-->
 	<script src="https://kit.fontawesome.com/7b1276326d.js" crossorigin="anonymous"></script>
 	
 	<!--<script src="./assets/bootstrap/bootstrap.bundle.js"></script>
@@ -16,9 +15,24 @@
 	<script src="./assets/scripts.js"></script>-->
 	
 	<title>Nina Carducci - Photographe Bordeaux</title>
+	<meta name="title" content="Nina Carducci"><!--A VOIR SI JE GARDE CETTE LIGNE-->
 	<meta name="description" content="Nina Carducci Photographe professionnelle sur Bordeaux  et ses alentours. Spécialisée dans les Mariages, Concerts, Entreprises et Portraits. Confiez moi la réalisation de vos photos pour des rendus uniques et de qualité. N'hésitez pas à me contacter pour parler de vos projets."/>
 	<meta name=" robots" content="index, follow" />
 	<link rel="canonical" href="http://nina-carducci.fr/" />
+	
+
+	<meta property="og:title" content="Nina Carducci - Photographe Bordeaux"/>
+	<meta property="og:description" content="Nina Carducci Photographe professionnelle sur Bordeaux  et ses alentours. Spécialisée dans les Mariages, Concerts, Entreprises et Portraits. Confiez moi la réalisation de vos photos pour des rendus uniques et de qualité. N'hésitez pas à me contacter pour parler de vos projets."/>
+	<meta property="og:type" content="website" />
+
+	<meta property="og:image" content="./assets/images/nina.webp" />
+	<meta property="og:image:type" content="image/webp" />
+	<meta property="og:image:width" content="400" />
+	<meta property="og:image:height" content="300" />
+	<meta property="og:image:alt" content="Photo de Nina Carducci" />
+
+
+
 </head>
 <body>
 <header>
@@ -36,16 +50,16 @@
 <main>
 	
 <section class="carousel">
-	<button id="boutonGauche" class="bouton"><i class="fa-solid fa-chevron-left fa-2xl"></i></button>
-	<button id="boutonDroite" class="bouton"><i class="fa-solid fa-chevron-right fa-2xl"></i></button>
-	<button id="bouton1" class="boutonDefil"></i><i class="fa-solid fa-window-minimize fa-2xl" style="color: #ffffff;"></i></button>
-	<button id="bouton2" class="boutonDefil"></i><i class="fa-solid fa-window-minimize fa-2xl" style="color: #ffffff;"></i></button>
-	<button id="bouton3" class="boutonDefil"></i><i class="fa-solid fa-window-minimize fa-2xl" style="color: #ffffff;"></i></button>
+	<button aria-label="precedentBtn" id="boutonGauche" class="bouton"><i class="fa-solid fa-chevron-left fa-2xl"></i></button>
+	<button aria-label="suivantBtn" id="boutonDroite" class="bouton"><i class="fa-solid fa-chevron-right fa-2xl"></i></button>
+	<button aria-label="defilementBtn" id="bouton1" class="boutonDefil"></i><i class="fa-solid fa-window-minimize fa-2xl" style="color: #ffffff;"></i></button>
+	<button aria-label="defilementBtn" id="bouton2" class="boutonDefil"></i><i class="fa-solid fa-window-minimize fa-2xl" style="color: #ffffff;"></i></button>
+	<button aria-label="defilementBtn" id="bouton3" class="boutonDefil"></i><i class="fa-solid fa-window-minimize fa-2xl" style="color: #ffffff;"></i></button>
 
 </section>
 <section id="about">
 	<div class="picture left">
-		<img src="./assets/images/nina .webp" alt="Photo de Nina Carducci">
+		<img src="./assets/images/nina .webp" alt="Photo de Nina Carducci" width= "327px" height= "325px">
 	</div>
 	<div id="about-me">
 		<h2 class="about-me__title">A propos de moi</h2>
@@ -57,8 +71,8 @@
 <section class="portfolio" id="portfolio">
 	<aside id="modal1" class="modal" aria-hidden="true" role= "dialog" style="display: none;">
 		<div class="modal-wrapper">
-			<button id="btn-gModal" class="boutonModal"><i class="fa-solid fa-chevron-left fa-xl"></i></button>
-			<button id="btn-dModal" class="boutonModal"><i class="fa-solid fa-chevron-right fa-xl"></i></button>
+			<button aria-label="precedentBtn" id="btn-gModal" class="boutonModal"><i class="fa-solid fa-chevron-left fa-xl"></i></button>
+			<button aria-label="suivantBtn" id="btn-dModal" class="boutonModal"><i class="fa-solid fa-chevron-right fa-xl"></i></button>
 			<div class="contenuModal">
 			</div>
 		</div>
@@ -142,7 +156,7 @@
 			<!--<img src="./assets/images/camera.webp" alt="Photo d'un appareil photo">
 			BALISE SCHEMA.org--> 
 				
-				<img src="./assets/images/camera.webp" itemprop = "image" alt="Photo d'un appareil photo" />   
+				<img src="./assets/images/camera.webp" itemprop = "image" alt="Photo d'un appareil photo"/>   
 		</div>
 	</section>
 </main>
