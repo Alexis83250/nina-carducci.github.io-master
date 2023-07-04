@@ -25,6 +25,8 @@ async function genererPhotos(photo) {
     imageElement.src = article.image;
     imageElement.alt = article.alt;
     imageElement.id = article.id;
+    imageElement.style.width = "440px";
+    imageElement.style.height = "440px";
 
     //Ajout de articleElement dans sectionGallery
 
@@ -187,7 +189,7 @@ function photoSuivante() {
   }
 }
 
-setInterval(photoSuivante, 5000);
+setInterval(photoSuivante, 8000);
 
 // Photo precedente-----------------------
 
@@ -246,14 +248,19 @@ const openModal = function (e) {
 
   const MonIdPhoto = parseInt(e.target.getAttribute("id")) - 1;
   const catId = parseInt(document.querySelector(".activedButton").dataset.id);
-  console.log(MonIdPhoto, catId);
+  console.log(catId);
   target.style.display = null;
   target.setAttribute("aria-hidden", "false");
   target.setAttribute("aria-modal", "true");
   document
     .querySelector(".modal-wrapper")
     .addEventListener("click", stopPropagation);
-  genererPhotosModal(MonIdPhoto, catId);
+  if (catId === 0 || catId === null || catId === undefined) {
+    catId = 0;
+    genererPhotosModal();
+  } else {
+    genererPhotosModal(MonIdPhoto, catId);
+  }
 };
 
 // CLOSE MODAL-----------
@@ -286,11 +293,13 @@ async function genererPhotosModal(IdPhotos, catId) {
   const maPhotoFiltre = photosModal.filter(
     (el) => el.categoryId === parseInt(catId)
   );
+
   IdPhoto = parseInt(IdPhotos);
   const myPhotosModale = maPhotoFiltre[IdPhoto];
-  console.log(IdPhoto, maPhotoFiltre);
-  const sectionCarousel = document.querySelector(".contenuModal");
+  console.log(maPhotoFiltre);
   nbMedias = maPhotoFiltre.length - 1;
+
+  const sectionCarousel = document.querySelector(".contenuModal");
   const divElement = document.createElement("div");
   divElement.classList.add("modaleDivImage");
 
