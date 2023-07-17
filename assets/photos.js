@@ -8,8 +8,7 @@ async function photosFilterss() {
 async function genererPhotos(photo) {
   const photos = typeof photo === "undefined" ? await photosFilterss() : photo;
   //Création d'une boucle qui va prendre toutes les photos
-  //console.log(photos.length);
-  //console.log(photos);
+
   for (let i = 0; i < photos.length; i++) {
     // Création des balises
 
@@ -98,6 +97,7 @@ async function selectionFilters() {
         });
         document.querySelector(".gallery").innerHTML = "";
         genererPhotos(photosFiltrees4);
+        console.log(photosFiltrees4);
       }
     });
   });
@@ -106,12 +106,6 @@ async function selectionFilters() {
 //------------Modif couleur filtres-----------
 
 //----------------CAROUSEL-----------------------
-
-async function carousel() {
-  const responseCarousel = await fetch("./assets/carousel.json");
-  const photosCarousel = await responseCarousel.json();
-  return photosCarousel;
-}
 
 let firstSlide = 0;
 const next = document.querySelector("#boutonDroite");
@@ -123,10 +117,26 @@ const btnNum3 = document.querySelector("#bouton3");
 //console.log(carousel());
 
 async function genererCarousel() {
-  const slides = await carousel();
-
   //slides.forEach((element, index) => {});
+  const slides = [
+    {
+      id: 1,
+      image: "./assets/images/slider/ryoji-iwata.webp",
+      alt: "Homme qui marche pour aller au travail",
+    },
 
+    {
+      id: 2,
+      image: "./assets/images/slider/nicholas-green.webp",
+      alt: "Photo du public joyeux à un concert",
+    },
+
+    {
+      id: 3,
+      image: "./assets/images/slider/edward-cisneros.webp",
+      alt: "Photo d'un couple de marié qui s'embrassent",
+    },
+  ];
   const mySlides = slides[firstSlide];
 
   const sectionCarousel = document.querySelector(".carousel");
@@ -160,21 +170,6 @@ async function genererCarousel() {
 }
 //permet de generer les photos non filtrés par default
 genererCarousel();
-
-//const container = document.querySelector(".carouselImg");
-// Photo suivante-----------------------
-
-/*next.addEventListener("click", () => {
-  if (firstSlide >= 2) {
-    firstSlide = 0;
-    document.querySelector(".carouselImage").remove();
-    genererCarousel();
-  } else {
-    firstSlide = firstSlide + 1;
-    document.querySelector(".carouselImage").remove();
-    genererCarousel();
-  }
-});*/
 
 next.addEventListener("click", photoSuivante);
 function photoSuivante() {
@@ -246,20 +241,21 @@ const stopPropagation = function (e) {
 const openModal = function (e) {
   e.preventDefault();
 
-  const MonIdPhoto = parseInt(e.target.getAttribute("id")) - 1;
+  const monIdPhoto = parseInt(e.target.getAttribute("id")) - 1;
   const catId = parseInt(document.querySelector(".activedButton").dataset.id);
-  console.log(catId);
+
+  //console.log(monIdPhoto);
   target.style.display = null;
   target.setAttribute("aria-hidden", "false");
   target.setAttribute("aria-modal", "true");
   document
     .querySelector(".modal-wrapper")
     .addEventListener("click", stopPropagation);
-  if (catId === 0 || catId === null || catId === undefined) {
+  if (catId === null || catId === undefined) {
     catId = 0;
     genererPhotosModal();
   } else {
-    genererPhotosModal(MonIdPhoto, catId);
+    genererPhotosModal(monIdPhoto, catId);
   }
 };
 
@@ -286,17 +282,22 @@ let nbMedias = 8;
 const btnModal1 = document.querySelector("#btn-gModal");
 const btnModal2 = document.querySelector("#btn-dModal");
 
-async function genererPhotosModal(IdPhotos, catId) {
+async function genererPhotosModal(IdPhoto, catId) {
   const photosModal = await photosFilterss();
+  //console.log(photosModal.length);
 
-  //photosModal.forEach((element, index) => {});
-  const maPhotoFiltre = photosModal.filter(
+  //const isLargeNumber = (element) => element.id === IdPhoto;
+
+  //console.log(catId);
+  let maPhotoFiltre = photosModal.filter(
     (el) => el.categoryId === parseInt(catId)
   );
 
-  IdPhoto = parseInt(IdPhotos);
-  const myPhotosModale = maPhotoFiltre[IdPhoto];
-  console.log(maPhotoFiltre);
+  console.log(maPhotoFiltre.findIndex((element) => element.id === IdPhoto));
+
+  console.log(IdPhoto);
+  IdPhoto = parseInt(IdPhoto) - 1;
+  let myPhotosModale = maPhotoFiltre[IdPhoto];
   nbMedias = maPhotoFiltre.length - 1;
 
   const sectionCarousel = document.querySelector(".contenuModal");
@@ -318,6 +319,7 @@ async function genererPhotosModal(IdPhotos, catId) {
 
 btnModal2.addEventListener("click", () => {
   console.log(IdPhoto);
+  nbMedias = photosModal.length;
   if (IdPhoto >= nbMedias) {
     IdPhoto = 0;
     document.querySelector(".modaleDivImage").remove();
@@ -333,6 +335,7 @@ btnModal2.addEventListener("click", () => {
 // Photo precedente-----------------------
 
 btnModal1.addEventListener("click", () => {
+  nbMedias = photosModal.length;
   if (IdPhoto <= 0) {
     IdPhoto = nbMedias;
     document.querySelector(".modaleDivImage").remove();
