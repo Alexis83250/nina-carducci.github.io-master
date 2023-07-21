@@ -68,6 +68,9 @@ async function genererFilters() {
 
     divEl.dataset.id = [i];
     divEl.innerText = myFilter.name;
+    if (myFilter.name === "Tous") {
+      divEl.classList.add("activedButton");
+    }
 
     sectionFilter.appendChild(divEl);
   }
@@ -184,7 +187,7 @@ function photoSuivante() {
   }
 }
 
-setInterval(photoSuivante, 8000);
+setInterval(photoSuivante, 2000);
 
 // Photo precedente-----------------------
 
@@ -241,7 +244,7 @@ const stopPropagation = function (e) {
 const openModal = function (e) {
   e.preventDefault();
 
-  const monIdPhoto = parseInt(e.target.getAttribute("id")) - 1;
+  const monIdPhoto = parseInt(e.target.getAttribute("id"));
   const catId = parseInt(document.querySelector(".activedButton").dataset.id);
 
   //console.log(monIdPhoto);
@@ -251,9 +254,9 @@ const openModal = function (e) {
   document
     .querySelector(".modal-wrapper")
     .addEventListener("click", stopPropagation);
-  if (catId === null || catId === undefined) {
-    catId = 0;
-    genererPhotosModal();
+  if (catId === null || catId === undefined || catId === 0) {
+    //catId = 0;
+    genererPhotosModal(monIdPhoto, 0);
   } else {
     genererPhotosModal(monIdPhoto, catId);
   }
@@ -288,16 +291,22 @@ async function genererPhotosModal(IdPhoto, catId) {
 
   //const isLargeNumber = (element) => element.id === IdPhoto;
 
+  let maPhotoFiltre = await photosFilterss();
   //console.log(catId);
-  let maPhotoFiltre = photosModal.filter(
-    (el) => el.categoryId === parseInt(catId)
+  if (catId !== 0) {
+    // Si catId est égal à 0, appelez la fonction photosFilters {
+    // Sinon, utilisez la fonction filter pour filtrer les photos par categoryId
+    maPhotoFiltre = photosModal.filter(
+      (el) => el.categoryId === parseInt(catId)
+    );
+  }
+  console.log(maPhotoFiltre);
+  const myPhotosModale = maPhotoFiltre.find(
+    (element) => element.id === IdPhoto
   );
-
-  console.log(maPhotoFiltre.findIndex((element) => element.id === IdPhoto));
-
-  console.log(IdPhoto);
-  IdPhoto = parseInt(IdPhoto) - 1;
-  let myPhotosModale = maPhotoFiltre[IdPhoto];
+  console.log(myPhotosModale);
+  //IdPhoto = parseInt(IdPhoto);
+  //myPhotosModale = newArray[IdPhoto];
   nbMedias = maPhotoFiltre.length - 1;
 
   const sectionCarousel = document.querySelector(".contenuModal");
@@ -318,8 +327,9 @@ async function genererPhotosModal(IdPhoto, catId) {
 // Photo suivante-----------------------
 
 btnModal2.addEventListener("click", () => {
-  console.log(IdPhoto);
-  nbMedias = photosModal.length;
+  console.log(photosModal);
+  nbMedias = maPhotoFiltre.length;
+  //nbMedias = photosModal.length;
   if (IdPhoto >= nbMedias) {
     IdPhoto = 0;
     document.querySelector(".modaleDivImage").remove();
