@@ -287,6 +287,7 @@ const closeModal = function (e) {
 document.querySelector(".modal").addEventListener("click", closeModal);
 
 //----------GENERER PHOTOS MODAL---------
+
 let IdPhoto = 0;
 let nbMedias = 0;
 
@@ -304,7 +305,7 @@ async function genererPhotosModal(IdPhoto, catId) {
   //const isLargeNumber = (element) => element.id === IdPhoto;
 
   maPhotoFiltre = await photosFilterss();
-  console.log(catId);
+  console.log(IdPhoto);
   if (catId !== 0) {
     // Si catId est égal à 0, appelez la fonction photosFilters {
     // Sinon, utilisez la fonction filter pour filtrer les photos par categoryId
@@ -321,13 +322,12 @@ async function genererPhotosModal(IdPhoto, catId) {
     category: element.category,
   }));
 
-  console.log(tableauAvecNouvelIndex);
+  //console.log(tableauAvecNouvelIndex);
   let myPhotosModale = tableauAvecNouvelIndex.find(
     (element) => element.id === parseInt(IdPhoto)
   );
-  console.log(myPhotosModale);
-  //IdPhoto = parseInt(IdPhoto);
-  //myPhotosModale = newArray[IdPhoto];
+  //IdPhoto = myPhotosModale.id;
+
   nbMedias = tableauAvecNouvelIndex.length;
 
   const sectionModal = document.querySelector(".contenuModal");
@@ -345,24 +345,21 @@ async function genererPhotosModal(IdPhoto, catId) {
   //Ajout de articleElement dans sectionGallery
   sectionModal.appendChild(divElement);
   divElement.appendChild(imageElement);
-  //console.log(IdPhoto);
-  //console.log(nbMedias);
+  console.log(IdPhoto);
 }
-
 //console.log(photosModal[catId]);
 
 //permet de generer les photos non filtrés par default
 
 // Photo suivante-----------------------
-
 function nextPhotos(catId) {
-  console.log(nbMedias, IdPhoto, catId);
-  //console.log(maPhotoFiltre);
+  //IdPhoto = leBonId;
+  //console.log(nbMedias, IdPhoto, catId);
+  //console.log(leBonId);
   IdPhoto++;
   if (IdPhoto > nbMedias) {
     IdPhoto = 1;
   }
-
   document.querySelector(".modaleImage").remove();
   genererPhotosModal(IdPhoto, catId);
 }
@@ -382,7 +379,6 @@ function prevPhotos(catId) {
   if (IdPhoto <= 0) {
     IdPhoto = nbMedias;
   }
-
   document.querySelector(".modaleImage").remove();
   genererPhotosModal(IdPhoto, catId);
 }
@@ -394,38 +390,3 @@ btnModal1.addEventListener("click", function (event) {
 
   prevPhotos(catId);
 });
-//console.log("Élément sélectionné :", maPhotoFiltre[selectedIndex]);
-
-// Photo precedente-----------------------
-/*
-btnModal1.addEventListener("click", () => {
-  nbMedias = photosModal.length;
-  if (IdPhoto <= 0) {
-    IdPhoto = nbMedias;
-    document.querySelector(".modaleDivImage").remove();
-    genererPhotosModal(IdPhoto);
-  } else {
-    IdPhoto = IdPhoto - 1;
-    document.querySelector(".modaleDivImage").remove();
-    genererPhotosModal(IdPhoto);
-  }
-});
-
-/*
-
-btnModal2.addEventListener("click", () => {
-    // Incrémentez l'index de l'élément sélectionné
-    selectedIndex++;
-    divElement.remove();
-    genererPhotosModal();
-
-    // Vérifiez si l'index dépasse les limites du tableau
-    if (selectedIndex >= myPhotosModale.length) {
-      selectedIndex = 0;
-      divElement.remove();
-      genererPhotosModal(); // Revenir au début si l'index dépasse les limites
-    }
-
-    // Mettez à jour l'affichage ou effectuez toute autre action nécessaire
-    genererPhotosModal();
-  }); */
