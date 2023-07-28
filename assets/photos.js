@@ -187,7 +187,7 @@ function photoSuivante() {
   }
 }
 
-setInterval(photoSuivante, 2000);
+setInterval(photoSuivante, 7000);
 
 // Photo precedente-----------------------
 
@@ -284,6 +284,9 @@ let nbMedias = 8;
 
 const btnModal1 = document.querySelector("#btn-gModal");
 const btnModal2 = document.querySelector("#btn-dModal");
+let catId = 0;
+
+let maPhotoFiltre;
 
 async function genererPhotosModal(IdPhoto, catId) {
   const photosModal = await photosFilterss();
@@ -292,8 +295,8 @@ async function genererPhotosModal(IdPhoto, catId) {
 
   //const isLargeNumber = (element) => element.id === IdPhoto;
 
-  let maPhotoFiltre = await photosFilterss();
-  //console.log(catId);
+  maPhotoFiltre = await photosFilterss();
+  console.log(catId);
   if (catId !== 0) {
     // Si catId est égal à 0, appelez la fonction photosFilters {
     // Sinon, utilisez la fonction filter pour filtrer les photos par categoryId
@@ -301,16 +304,25 @@ async function genererPhotosModal(IdPhoto, catId) {
       (el) => el.categoryId === parseInt(catId)
     );
   }
-  //console.log(myPhotosModale);
-  const myPhotosModale = maPhotoFiltre.find(
-    (element) => element.id === IdPhoto
+  const tableauAvecNouvelIndex = maPhotoFiltre.map((element, index) => ({
+    id: index + 1,
+    oldIndex: element.id,
+    image: element.image,
+    alt: element.alt,
+    categoryId: element.categoryId,
+    category: element.category,
+  }));
+
+  console.log(tableauAvecNouvelIndex);
+  let myPhotosModale = tableauAvecNouvelIndex.find(
+    (element) => element.id === parseInt(IdPhoto)
   );
-  //console.log(myPhotosModale);
+  console.log(myPhotosModale);
   //IdPhoto = parseInt(IdPhoto);
   //myPhotosModale = newArray[IdPhoto];
-  nbMedias = maPhotoFiltre.length;
+  nbMedias = tableauAvecNouvelIndex.length;
 
-  const sectionCarousel = document.querySelector(".contenuModal");
+  const sectionModal = document.querySelector(".contenuModal");
   const divElement = document.createElement("div");
   divElement.classList.add("modaleDivImage");
 
@@ -319,12 +331,14 @@ async function genererPhotosModal(IdPhoto, catId) {
   imageElement.alt = myPhotosModale.alt;
   imageElement.classList.add("modaleImage");
 
+  // Vider la sectionModal avant d'ajouter de nouveaux éléments
+  sectionModal.innerHTML = "";
+
   //Ajout de articleElement dans sectionGallery
-  sectionCarousel.appendChild(divElement);
+  sectionModal.appendChild(divElement);
   divElement.appendChild(imageElement);
-  console.log(IdPhoto);
-  console.log(nbMedias);
-  btnModal2.addEventListener("click", nextPhotos);
+  //console.log(IdPhoto);
+  //console.log(nbMedias);
 }
 
 //console.log(photosModal[catId]);
@@ -333,29 +347,29 @@ async function genererPhotosModal(IdPhoto, catId) {
 
 // Photo suivante-----------------------
 
-function nextPhotos() {
-  //nbMedias = maPhotoFiltre.length;
-  //nbMedias = photosModal.length;
-  if (nbMedias >= nbMedias) {
-    IdPhoto = 0;
-    document.querySelector(".modaleDivImage").remove();
-    genererPhotosModal(myPhotosModale, IdPhoto);
-  } else
-    while (
-      myPhotosModale == undefined ||
-      myPhotosModale == null ||
-      myPhotosModale == NaN
-    ) {
-      IdPhoto++;
-      document.querySelector(".modaleDivImage").remove();
-      genererPhotosModal(myPhotosModale, IdPhoto);
-    }
-}
+function nextPhotos(catId) {
+  console.log(nbMedias, IdPhoto, catId);
+  //console.log(maPhotoFiltre);
+  IdPhoto++;
+  if (IdPhoto > nbMedias) {
+    IdPhoto = 1;
+  }
 
+  document.querySelector(".modaleImage").remove();
+  genererPhotosModal(IdPhoto, catId);
+}
+//btnModal2.addEventListener("click", nextPhotos(IdPhoto, catId));
+btnModal2.addEventListener("click", function (event) {
+  // Empêcher l'exécution par défaut du bouton
+  event.preventDefault();
+  const catId = parseInt(document.querySelector(".activedButton").dataset.id);
+
+  nextPhotos(catId);
+});
 //console.log("Élément sélectionné :", maPhotoFiltre[selectedIndex]);
 
 // Photo precedente-----------------------
-
+/*
 btnModal1.addEventListener("click", () => {
   nbMedias = photosModal.length;
   if (IdPhoto <= 0) {
