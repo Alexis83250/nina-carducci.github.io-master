@@ -98,9 +98,17 @@ async function selectionFilters() {
         const photosFiltrees4 = photos.filter(function (photo) {
           return photo.categoryId == categoryId;
         });
+        const nouveauTableauFiltres = photosFiltrees4.map((element, index) => ({
+          id: index + 1,
+          oldIndex: element.id,
+          image: element.image,
+          alt: element.alt,
+          categoryId: element.categoryId,
+          category: element.category,
+        }));
         document.querySelector(".gallery").innerHTML = "";
-        genererPhotos(photosFiltrees4);
-        console.log(photosFiltrees4);
+        genererPhotos(nouveauTableauFiltres);
+        console.log(nouveauTableauFiltres);
       }
     });
   });
@@ -280,7 +288,7 @@ document.querySelector(".modal").addEventListener("click", closeModal);
 
 //----------GENERER PHOTOS MODAL---------
 let IdPhoto = 0;
-let nbMedias = 8;
+let nbMedias = 0;
 
 const btnModal1 = document.querySelector("#btn-gModal");
 const btnModal2 = document.querySelector("#btn-dModal");
@@ -365,6 +373,26 @@ btnModal2.addEventListener("click", function (event) {
   const catId = parseInt(document.querySelector(".activedButton").dataset.id);
 
   nextPhotos(catId);
+});
+
+function prevPhotos(catId) {
+  console.log(nbMedias, IdPhoto, catId);
+  //console.log(maPhotoFiltre);
+  IdPhoto--;
+  if (IdPhoto <= 0) {
+    IdPhoto = nbMedias;
+  }
+
+  document.querySelector(".modaleImage").remove();
+  genererPhotosModal(IdPhoto, catId);
+}
+//btnModal2.addEventListener("click", nextPhotos(IdPhoto, catId));
+btnModal1.addEventListener("click", function (event) {
+  // Empêcher l'exécution par défaut du bouton
+  event.preventDefault();
+  const catId = parseInt(document.querySelector(".activedButton").dataset.id);
+
+  prevPhotos(catId);
 });
 //console.log("Élément sélectionné :", maPhotoFiltre[selectedIndex]);
 
