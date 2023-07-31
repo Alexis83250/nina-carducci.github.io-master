@@ -288,7 +288,7 @@ document.querySelector(".modal").addEventListener("click", closeModal);
 
 //----------GENERER PHOTOS MODAL---------
 
-let IdPhoto = 0;
+//let IdPhoto = 0;
 let nbMedias = 0;
 
 const btnModal1 = document.querySelector("#btn-gModal");
@@ -337,6 +337,7 @@ async function genererPhotosModal(IdPhoto, catId) {
   const imageElement = document.createElement("img");
   imageElement.src = myPhotosModale.image;
   imageElement.alt = myPhotosModale.alt;
+  imageElement.id = myPhotosModale.id;
   imageElement.classList.add("modaleImage");
 
   // Vider la sectionModal avant d'ajouter de nouveaux éléments
@@ -347,14 +348,16 @@ async function genererPhotosModal(IdPhoto, catId) {
   divElement.appendChild(imageElement);
   console.log(IdPhoto);
 }
+
+//console.log(IdPhoto);
 //console.log(photosModal[catId]);
 
 //permet de generer les photos non filtrés par default
 
 // Photo suivante-----------------------
 function nextPhotos(catId) {
-  //IdPhoto = leBonId;
-  //console.log(nbMedias, IdPhoto, catId);
+  IdPhoto = document.querySelector(".modaleImage").id;
+  console.log(nbMedias, IdPhoto, catId);
   //console.log(leBonId);
   IdPhoto++;
   if (IdPhoto > nbMedias) {
@@ -373,6 +376,8 @@ btnModal2.addEventListener("click", function (event) {
 });
 
 function prevPhotos(catId) {
+  IdPhoto = document.querySelector(".modaleImage").id;
+
   console.log(nbMedias, IdPhoto, catId);
   //console.log(maPhotoFiltre);
   IdPhoto--;
