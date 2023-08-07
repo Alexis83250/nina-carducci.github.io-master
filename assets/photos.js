@@ -101,7 +101,7 @@ async function photosFilterss() {
       },
     },
   ];
-  console.log(photos);
+  //console.log(photos);
   return photos;
 }
 
@@ -235,7 +235,7 @@ async function selectionFilters() {
         }));
         document.querySelector(".gallery").innerHTML = "";
         genererPhotos(nouveauTableauFiltres);
-        console.log(nouveauTableauFiltres);
+        //console.log(nouveauTableauFiltres);
       }
     });
   });
@@ -432,7 +432,7 @@ async function genererPhotosModal(IdPhoto, catId) {
   //const isLargeNumber = (element) => element.id === IdPhoto;
 
   maPhotoFiltre = await photosFilterss();
-  console.log(IdPhoto);
+  //console.log(IdPhoto);
   if (catId !== 0) {
     // Si catId est égal à 0, appelez la fonction photosFilters {
     // Sinon, utilisez la fonction filter pour filtrer les photos par categoryId
@@ -473,7 +473,7 @@ async function genererPhotosModal(IdPhoto, catId) {
   //Ajout de articleElement dans sectionGallery
   sectionModal.appendChild(divElement);
   divElement.appendChild(imageElement);
-  console.log(IdPhoto);
+  //console.log(IdPhoto);
 }
 
 //console.log(IdPhoto);
@@ -484,7 +484,7 @@ async function genererPhotosModal(IdPhoto, catId) {
 // Photo suivante-----------------------
 function nextPhotos(catId) {
   IdPhoto = document.querySelector(".modaleImage").id;
-  console.log(nbMedias, IdPhoto, catId);
+  //console.log(nbMedias, IdPhoto, catId);
   //console.log(leBonId);
   IdPhoto++;
   if (IdPhoto > nbMedias) {
@@ -505,7 +505,7 @@ btnModal2.addEventListener("click", function (event) {
 function prevPhotos(catId) {
   IdPhoto = document.querySelector(".modaleImage").id;
 
-  console.log(nbMedias, IdPhoto, catId);
+  //console.log(nbMedias, IdPhoto, catId);
   //console.log(maPhotoFiltre);
   IdPhoto--;
   if (IdPhoto <= 0) {
