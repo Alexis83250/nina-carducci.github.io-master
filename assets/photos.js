@@ -1,4 +1,4 @@
-async function photosFilterss() {
+function photosFilterss() {
   //const response = await fetch("./assets/photosFilter.json");
   //const photos = await response.json();
   const photos = [
@@ -473,7 +473,7 @@ async function genererPhotosModal(IdPhoto, catId) {
   //Ajout de articleElement dans sectionGallery
   sectionModal.appendChild(divElement);
   divElement.appendChild(imageElement);
-  //console.log(IdPhoto);
+  console.log(IdPhoto);
 }
 
 //console.log(IdPhoto);
@@ -484,7 +484,7 @@ async function genererPhotosModal(IdPhoto, catId) {
 // Photo suivante-----------------------
 function nextPhotos(catId) {
   IdPhoto = document.querySelector(".modaleImage").id;
-  //console.log(nbMedias, IdPhoto, catId);
+  console.log(nbMedias, IdPhoto, catId);
   //console.log(leBonId);
   IdPhoto++;
   if (IdPhoto > nbMedias) {
@@ -505,7 +505,7 @@ btnModal2.addEventListener("click", function (event) {
 function prevPhotos(catId) {
   IdPhoto = document.querySelector(".modaleImage").id;
 
-  //console.log(nbMedias, IdPhoto, catId);
+  console.log(nbMedias, IdPhoto, catId);
   //console.log(maPhotoFiltre);
   IdPhoto--;
   if (IdPhoto <= 0) {
