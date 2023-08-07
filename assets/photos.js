@@ -1,6 +1,107 @@
 async function photosFilterss() {
-  const response = await fetch("./assets/photosFilter.json");
-  const photos = await response.json();
+  //const response = await fetch("./assets/photosFilter.json");
+  //const photos = await response.json();
+  const photos = [
+    {
+      id: 1,
+      image: "./assets/images/gallery/concerts/aaron-paul.webp",
+      alt: "Photo du concert de Aaron Paul",
+      categoryId: 1,
+      category: {
+        id: 1,
+        name: "concerts",
+      },
+    },
+
+    {
+      id: 2,
+      image: "./assets/images/gallery/entreprise/ali-morshedlou.webp",
+      alt: "Photo d'un homme en costume qui sourit ",
+      categoryId: 2,
+      category: {
+        id: 2,
+        name: "entreprise",
+      },
+    },
+
+    {
+      id: 3,
+      image: "./assets/images/gallery/entreprise/jason-goodman.webp",
+      alt: "Photo d'une femme qui sourit au travail ",
+      categoryId: 2,
+      category: {
+        id: 2,
+        name: "entreprise",
+      },
+    },
+
+    {
+      id: 4,
+      image: "./assets/images/gallery/mariage/hannah-busing.webp",
+      alt: "Photo des mains des mariés avec leurs alliance",
+      categoryId: 3,
+      category: {
+        id: 3,
+        name: "mariage",
+      },
+    },
+
+    {
+      id: 5,
+      image: "./assets/images/gallery/portraits/ade-tunji.webp",
+      alt: "Photo portait d'un homme ayant le soleil dans les yeux",
+      categoryId: 4,
+      category: {
+        id: 4,
+        name: "portraits",
+      },
+    },
+
+    {
+      id: 6,
+      image: "./assets/images/gallery/mariage/jakob-owens.webp",
+      alt: "Photo d'un couple de mariés qui marche en se regardant et en souriant",
+      categoryId: 3,
+      category: {
+        id: 3,
+        name: "mariage",
+      },
+    },
+
+    {
+      id: 7,
+      image: "./assets/images/gallery/portraits/nino-van.webp",
+      alt: "Photo portait d'une femme avec des lunettes",
+      categoryId: 4,
+      category: {
+        id: 4,
+        name: "portraits",
+      },
+    },
+
+    {
+      id: 8,
+      image: "./assets/images/gallery/concerts/austin-neill.webp",
+      alt: "Photo du concert de Austin Neill",
+      categoryId: 1,
+      category: {
+        id: 1,
+        name: "concerts",
+      },
+    },
+
+    {
+      id: 9,
+      image: "./assets/images/gallery/entreprise/mateus-campos.webp",
+      alt: "Photo d'une femme qui sourit au travail ",
+      categoryId: 2,
+      category: {
+        id: 2,
+        name: "entreprise",
+      },
+    },
+  ];
+  console.log(photos);
   return photos;
 }
 
@@ -48,8 +149,34 @@ genererPhotos();
 //FILTRES---------------------------------------
 
 async function photosFilterIIIs() {
-  const reponseFilt = await fetch("./assets/filtres.json");
-  const filters = await reponseFilt.json();
+  //const reponseFilt = await fetch("./assets/filtres.json");
+  //const filters = await reponseFilt.json();
+  const filters = [
+    {
+      id: 0,
+      name: "Tous",
+    },
+
+    {
+      id: 1,
+      name: "Concerts",
+    },
+
+    {
+      id: 2,
+      name: "Entreprise",
+    },
+
+    {
+      id: 3,
+      name: "Mariage",
+    },
+
+    {
+      id: 4,
+      name: "Portraits",
+    },
+  ];
   return filters;
 }
 
